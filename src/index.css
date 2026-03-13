@@ -1,0 +1,97 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Inter:wght@400;500;600&family=Oswald:wght@600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  body {
+    @apply bg-slate-100 text-ink-700 font-body antialiased transition-colors duration-300;
+  }
+
+  .dark body {
+    @apply bg-[#0f172a] text-ink-100;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/80 backdrop-blur border border-slate-200 shadow-soft;
+  }
+
+  .dark .glass {
+    @apply bg-ink-800/80 border-ink-700/70;
+  }
+
+  .page-shell {
+    @apply min-h-screen bg-gradient-to-br from-slate-100 via-slate-100 to-brand-50 dark:from-[#0f172a] dark:via-[#0f172a] dark:to-[#0b1220];
+    position: relative;
+    isolation: isolate;
+  }
+
+  .page-shell::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      circle at 30% 20%,
+      rgba(56, 189, 248, 0.08),
+      transparent 55%
+    );
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+
+  .dark .page-shell::before {
+    opacity: 1;
+  }
+
+  .blueprint-bg {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .blueprint-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-size: 48px 48px;
+    opacity: 0.16;
+    background-image:
+      linear-gradient(rgba(96, 165, 250, 0.16) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(96, 165, 250, 0.16) 1px, transparent 1px);
+  }
+
+  .dark .blueprint-bg::before {
+    opacity: 0.16;
+  }
+
+  .blueprint-bg > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .page-fade {
+    animation: pageFade 220ms ease-out;
+  }
+
+}
+
+@keyframes pageFade {
+  from {
+    opacity: 0.6;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
